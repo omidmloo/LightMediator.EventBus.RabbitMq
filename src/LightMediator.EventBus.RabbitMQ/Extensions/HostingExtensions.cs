@@ -42,15 +42,22 @@ public static class HostingExtensions
 
             cfg.UsingRabbitMq((context, cfgRabbit) =>
             {
-                cfgRabbit.Host(settings.HostUri, h =>
+                cfgRabbit.Host(new Uri(settings.HostUri),settings.VirtualHost, h =>
                 {
                     h.Username(settings.Username);
-                    h.Password(settings.Password);
+                    h.Password(settings.Password);  
                 });
-                cfgRabbit.ReceiveEndpoint("order-created-queue", e =>
+                cfgRabbit.ReceiveEndpoint("lightmediator-events-queue", e =>
                 {
                     e.ConfigureConsumer<RabbitMQEventBus<RabbitMQEvent>>(context);
                 });
+                if (settings.EnableRetry)
+                {
+                    cfgRabbit.UseMessageRetry(retryCfg =>
+                    {
+                        retryCfg.Interval(settings.RetryCount, TimeSpan.FromMilliseconds(settings.RetryIntervalMs));
+                    });
+                }
             });
         });
 

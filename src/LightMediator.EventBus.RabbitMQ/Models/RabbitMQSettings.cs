@@ -20,32 +20,7 @@ public class RabbitMQSettings
     /// <summary>
     /// Virtual host to connect to (default "/")
     /// </summary>
-    public string VirtualHost { get; set; } = "/";
-
-    /// <summary>
-    /// Whether queues and exchanges are durable
-    /// </summary>
-    public bool Durable { get; set; } = true;
-
-    /// <summary>
-    /// Prefetch count for consumers (controls parallelism)
-    /// </summary>
-    public ushort PrefetchCount { get; set; } = 10;
-
-    /// <summary>
-    /// Enable dead-letter queue support
-    /// </summary>
-    public bool EnableDeadLetter { get; set; } = true;
-
-    /// <summary>
-    /// Enable automatic endpoint configuration
-    /// </summary>
-    public bool ConfigureEndpoints { get; set; } = true;
-
-    /// <summary>
-    /// Optionally override default exchange name (MassTransit uses type-based names)
-    /// </summary>
-    public string? ExchangeName { get; set; }
+    public string VirtualHost { get; set; } = "/"; 
 
     /// <summary>
     /// Enable message retry (MassTransit built-in policy)
